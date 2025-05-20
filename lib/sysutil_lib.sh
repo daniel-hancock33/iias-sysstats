@@ -1,5 +1,27 @@
 #!/bin/bash
 
+collect_db_size_info() {
+  local OUTDIR="$1"
+  local TS="$2"
+  local OUTFILE="${OUTDIR}/${TS}/dbsize-${TS}.out"
+
+  mkdir -v -p "$OUTDIR/${TS}"
+
+  docker exec -i dashDB su - db2inst1 <<EOF > "$OUTFILE"
+db2 connect to bludb > /dev/null
+db2 "CALL GET_DBSIZE_INFO(?, ?, ?, -1)"
+db2 "SELECT CAST(TABSCHEMA as char(16)) TABSCHEMA, CAST(TABNAME as char(20)) TABNAME, \
+PCTPAGESSAVED, DEC(1.0/(1.0-(PCTPAGESSAVED*1.0)/100.0),31,2) AS compression_ratio \
+FROM SYSCAT.TABLES WHERE tabschema NOT IN ('SYSIBM') AND type = 'T'"
+EOF
+
+  if [[ $? -eq 0 && -s "$OUTFILE" ]]; then
+    echo "✅ Collected database size info → $OUTFILE"
+  else
+    echo "❌ Failed to collect database size info or output is empty" >&2
+  fi
+}
+
 run_sysutil_capture() {
   CAPTURED_TS="$1"
   OUTDIR="$2/${CAPTURED_TS}"
@@ -75,4 +97,3 @@ run_sysutil_capture() {
     echo "" >> "${OUTDIR}/captured.log"
   done
 }
-
