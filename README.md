@@ -15,7 +15,8 @@
 
 - IBM Integrated Analytics System (IIAS) host access
 - Root privileges on the IIAS host OS
-- Bash shell and standard Unix utilities (e.g., `top`, `vmstat`, `iostat`)
+- Bash shell and standard Unix utilities:
+  - `sar` (requires `sysstat` package)
 
 ### Installation
 
@@ -67,4 +68,4 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 
 ## Acknowledgments
 
-[daniel-hancock33](https://github.com/daniel-hancock33) maintainer.
+[daniel-hancock33](https://github.com/daniel-hancock33) for creating and maintaining this project.
