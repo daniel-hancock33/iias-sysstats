@@ -18,6 +18,22 @@
 - Bash shell and standard Unix utilities:
   - `sar` (requires `sysstat` package)
 
+### Download the repo
+
+You can obtain this repository in two ways:
+
+**Option 1**: Clone with Git (recommended)
+If you have Git installed, you can clone the repository using:
+
+`git clone https://github.com/daniel-hancock33/iias-sysstats.git`
+
+This will create a local copy of the repository on your machine.
+
+**Option 2**: Download as ZIP
+Visit the repository page: https://github.com/daniel-hancock33/iias-sysstats
+
+Extract the downloaded ZIP file to access the contents.
+
 ### Installation
 
 1. SSH into the IIAS host OS as root (not into the Db2 container).
